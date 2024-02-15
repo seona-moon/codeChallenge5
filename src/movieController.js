@@ -3,11 +3,23 @@ import {
   getMovies,
   getMovieByMinimumRating,
   getMovieByMinimumYear,
+  addMovie,
 } from "./db";
 
 export const home = (req, res) => {
   const movies = getMovies();
   return res.render("home", { pageTitle: "Movies!", movies });
+};
+
+export const getAdd = (req, res) => {
+  return res.render("add", { pageTitle: "Add Movie" });
+};
+
+export const postAdd = (req, res) => {
+  const { title, synopsis, genre } = req.body; //POST로부터 데이터를 받아옴
+  console.log(title, synopsis, genre);
+  addMovie({ title, synopsis, genre });
+  return res.redirect("/"); //이전 페이지로 이동.
 };
 
 export const filterMovie = (req, res) => {
@@ -30,12 +42,10 @@ export const filterMovie = (req, res) => {
 };
 
 export const movieDetail = (req, res) => {
-  // const { id } = req.params;
-  // const movie = getMovieById(id);
-  // if (!movie) {
-  //   return res.status(404).send("Movie not found");
-  // }
-  // return res.render("movieDetail", { pageTitle: movie.title, movie });
-
-  return res.render("movieDetail");
+  const { id } = req.params;
+  const movie = getMovieById(id);
+  if (!movie) {
+    return res.status(404).send("Movie not found");
+  }
+  return res.render("movieDetail", { pageTitle: movie.title, movie });
 };

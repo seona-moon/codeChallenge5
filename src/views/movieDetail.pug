@@ -1,1 +1,8 @@
 extends index.pug
+
+block content
+  p=movie.synopsis
+  if movie.genres
+    ul
+      each genre in movie.genres
+        li=genre

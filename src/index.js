@@ -4,6 +4,7 @@ import "./db";
 import movieRouter from "./movieRouter";
 
 const app = express();
+app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 app.use("/", movieRouter);
