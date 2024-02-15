@@ -1,0 +1,9 @@
+mixin video(info)
+    form(action = "/filter",method="GET")
+            input(name="year",placeholder = "filter by year")
+            input(name="rating",placeholder = "filter by rating")
+            input(value = "Save", type ="submit")
+    each movie in movies
+        ul 
+            li 
+                a(href=`/${movie.id}`)= movie.title
